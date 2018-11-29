@@ -1,0 +1,21 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y tzdata && \
+    apt-get install -y php7.2 php7.2-curl php7.2-mbstring php7.2-xml git zip && \
+    cd root && \
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" && \
+    php composer-setup.php && \
+    php -r "unlink('composer-setup.php');" && \
+    git clone https://github.com/andig/carddav2fb.git && \
+    cd carddav2fb && \
+    ./../composer.phar install
+
+COPY config.php /root/carddav2fb
+
+RUN cd root/carddav2fb && \
+    php carddav2fb.php run
+
+CMD bin/bash
