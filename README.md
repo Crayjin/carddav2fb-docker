@@ -17,7 +17,10 @@ Provides an easy way to run carddav2fb (https://github.com/andig/carddav2fb) in 
 
 ## How to run the image
 
-Run the following command: `docker run -it carddav2fb /bin/bash`
+Run the following commands:
+1.  `docker run -it carddav2fb /bin/bash`
+2.  `cd root/carddav2fb`
+3.  `php carddav2fb.php run`
 
 The import will begin automatically. When the import has finished,exit the container.
 

@@ -15,7 +15,4 @@ RUN apt-get update && \
 
 COPY config.php /root/carddav2fb
 
-RUN cd root/carddav2fb && \
-    php carddav2fb.php run
-
 CMD bin/bash
